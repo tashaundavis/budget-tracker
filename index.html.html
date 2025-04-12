@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Tracker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .container {
+      background: #1e272e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 500px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #00cec9;
+    }
+    .balance {
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    input, button {
+      padding: 12px;
+      margin: 8px 4px;
+      width: calc(50% - 12px);
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    input {
+      background-color: #dfe6e9;
+      color: #2d3436;
+    }
+    button {
+      background-color: #0984e3;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #74b9ff;
+    }
+    .transactions {
+      margin-top: 30px;
+    }
+    .transactions h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #00cec9;
+    }
+    .transactions ul {
+      list-style-type: none;
+    }
+    .transactions li {
+      background: #34495e;
+      margin: 6px 0;
+      padding: 10px;
+      border-left: 6px solid #2ecc71;
+      border-radius: 4px;
+    }
+    .expense {
+      border-left-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Budget Tracker</h1>
+    <div class="balance">Balance: $<span id="balance">0</span></div>
+    <input type="text" id="desc" placeholder="Description">
+    <input type="number" id="amount" placeholder="Amount">
+    <button onclick="addTransaction(true)">Add Income</button>
+    <button onclick="addTransaction(false)">Add Expense</button>
+    <div class="transactions">
+      <h3>Transaction History</h3>
+      <ul id="transactionList"></ul>
+    </div>
+  </div>
+
+  <script>
+    let balance = 0;
+    const balanceEl = document.getElementById('balance');
+    const transactionList = document.getElementById('transactionList');
+
+    function addTransaction(isIncome) {
+      const desc = document.getElementById('desc').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+
+      if (!desc || isNaN(amount)) {
+        alert("Please enter a valid description and amount.");
+        return;
+      }
+
+      const li = document.createElement('li');
+      li.textContent = `${desc}: $${amount.toFixed(2)}`;
+      if (!isIncome) {
+        li.classList.add('expense');
+        balance -= amount;
+      } else {
+        balance += amount;
+      }
+      transactionList.appendChild(li);
+      balanceEl.textContent = balance.toFixed(2);
+
+      document.getElementById('desc').value = '';
+      document.getElementById('amount').value = '';
+    }
+  </script>
+</body>
+</html>
