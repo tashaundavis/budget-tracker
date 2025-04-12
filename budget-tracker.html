@@ -3,48 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Budget Tracker</title>
+  <title>Budget Tracker</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
     }
     .container {
-      max-width: 600px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: #1e272e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 500px;
     }
     h1 {
       text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #00cec9;
     }
     .balance {
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
     }
     input, button {
-      padding: 10px;
-      margin: 5px;
+      padding: 12px;
+      margin: 8px 4px;
       width: calc(50% - 12px);
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    input {
+      background-color: #dfe6e9;
+      color: #2d3436;
+    }
+    button {
+      background-color: #0984e3;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #74b9ff;
     }
     .transactions {
-      margin-top: 20px;
+      margin-top: 30px;
+    }
+    .transactions h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #00cec9;
     }
     .transactions ul {
       list-style-type: none;
-      padding: 0;
     }
     .transactions li {
-      padding: 8px;
-      margin: 5px 0;
-      background: #eaeaea;
-      border-left: 5px solid green;
+      background: #34495e;
+      margin: 6px 0;
+      padding: 10px;
+      border-left: 6px solid #2ecc71;
+      border-radius: 4px;
     }
     .expense {
-      border-left-color: red;
+      border-left-color: #e74c3c;
     }
   </style>
 </head>
@@ -87,7 +122,6 @@
       transactionList.appendChild(li);
       balanceEl.textContent = balance.toFixed(2);
 
-      // Clear inputs
       document.getElementById('desc').value = '';
       document.getElementById('amount').value = '';
     }
