@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Budget Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    .balance {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      width: calc(50% - 12px);
+    }
+    .transactions {
+      margin-top: 20px;
+    }
+    .transactions ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .transactions li {
+      padding: 8px;
+      margin: 5px 0;
+      background: #eaeaea;
+      border-left: 5px solid green;
+    }
+    .expense {
+      border-left-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Budget Tracker</h1>
+    <div class="balance">Balance: $<span id="balance">0</span></div>
+    <input type="text" id="desc" placeholder="Description">
+    <input type="number" id="amount" placeholder="Amount">
+    <button onclick="addTransaction(true)">Add Income</button>
+    <button onclick="addTransaction(false)">Add Expense</button>
+    <div class="transactions">
+      <h3>Transaction History</h3>
+      <ul id="transactionList"></ul>
+    </div>
+  </div>
+
+  <script>
+    let balance = 0;
+    const balanceEl = document.getElementById('balance');
+    const transactionList = document.getElementById('transactionList');
+
+    function addTransaction(isIncome) {
+      const desc = document.getElementById('desc').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+
+      if (!desc || isNaN(amount)) {
+        alert("Please enter a valid description and amount.");
+        return;
+      }
+
+      const li = document.createElement('li');
+      li.textContent = `${desc}: $${amount.toFixed(2)}`;
+      if (!isIncome) {
+        li.classList.add('expense');
+        balance -= amount;
+      } else {
+        balance += amount;
+      }
+      transactionList.appendChild(li);
+      balanceEl.textContent = balance.toFixed(2);
+
+      // Clear inputs
+      document.getElementById('desc').value = '';
+      document.getElementById('amount').value = '';
+    }
+  </script>
+</body>
+</html>
